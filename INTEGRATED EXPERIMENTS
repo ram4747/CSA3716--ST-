@@ -1,0 +1,158 @@
+1. UNIT TESTING – BANKING / E-COMMERCE APPLICATION
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class LoginTest {
+
+    @Test
+    public void testValidLogin() {
+        String username = "admin";
+        String password = "1234";
+        assertTrue(Login.validate(username, password));
+    }
+
+    @Test
+    public void testInvalidLogin() {
+        assertFalse(Login.validate("user", "wrong"));
+    }
+}
+
+
+2. INTEGRATION TESTING – ARMS / ONLINE EXAM SYSTEM
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class IntegrationTest {
+
+    @Test
+    public void testFullFlow_PassCase() {
+        AuthService auth = new AuthService();
+        ExamService exam = new ExamService();
+        ResultService result = new ResultService();
+
+        // Step 1: Login
+        boolean loginStatus = auth.login("student", "1234");
+        assertTrue(loginStatus);
+
+        // Step 2: Start Exam
+        boolean examStarted = exam.startExam(loginStatus);
+        assertTrue(examStarted);
+
+        // Step 3: Submit Exam
+        int marks = exam.submitExam(80);
+
+        // Step 4: Generate Result
+        String finalResult = result.generateResult(marks);
+        assertEquals("PASS", finalResult);
+    }
+
+    @Test
+    public void testFullFlow_FailCase() {
+        AuthService auth = new AuthService();
+        ExamService exam = new ExamService();
+        ResultService result = new ResultService();
+
+        boolean loginStatus = auth.login("student", "1234");
+        assertTrue(loginStatus);
+
+        boolean examStarted = exam.startExam(loginStatus);
+        assertTrue(examStarted);
+
+        int marks = exam.submitExam(30);
+        String finalResult = result.generateResult(marks);
+
+        assertEquals("FAIL", finalResult);
+    }
+
+    @Test
+    public void testInvalidLogin() {
+        AuthService auth = new AuthService();
+
+        boolean loginStatus = auth.login("wrong", "user");
+        assertFalse(loginStatus);
+    }
+}
+
+
+
+3. JUNIT EXPERIMENT – PRIME / MAX NUMBER
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class MaxTest {
+
+    @Test
+    public void testMax() {
+        assertEquals(10, Max.findMax(10, 5, 3));
+        assertEquals(20, Max.findMax(10, 20, 3));
+    }
+}
+
+4. SYSTEM & REGRESSION TESTING – RAILWAY / INVENTORY SYSTEM
+public class RailwayReservation {
+
+    private int availableSeats = 5;
+
+    // Check seat availability
+    public int checkAvailability() {
+        return availableSeats;
+    }
+
+    // Book ticket
+    public String bookTicket(int seatsRequested) {
+        if (seatsRequested <= availableSeats) {
+            availableSeats -= seatsRequested;
+            return "Booking Successful";
+        } else {
+            return "Not Enough Seats";
+        }
+    }
+
+    // Cancel ticket
+    public String cancelTicket(int seatsCancelled) {
+        availableSeats += seatsCancelled;
+        return "Cancellation Successful";
+    }
+}
+
+
+
+5. SELENIUM & JMETER TESTING
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class LoginTest {
+
+    public static void main(String[] args) {
+
+        // Set ChromeDriver path
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+
+        WebDriver driver = new ChromeDriver();
+
+        // Open website
+        driver.get("https://example.com/login");
+
+        // Find elements
+        WebElement username = driver.findElement(By.id("username"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement loginBtn = driver.findElement(By.id("login"));
+
+        // Perform actions
+        username.sendKeys("admin");
+        password.sendKeys("1234");
+        loginBtn.click();
+
+        // Validate result
+        String currentUrl = driver.getCurrentUrl();
+        if (currentUrl.contains("dashboard")) {
+            System.out.println("Login Successful");
+        } else {
+            System.out.println("Login Failed");
+        }
+
+        driver.quit();
+    }
+}
