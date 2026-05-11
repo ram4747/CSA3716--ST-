@@ -1,0 +1,36 @@
+package Integration_Exp;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class RailwayReservationSystemTest {
+
+    public boolean bookTicket(int seatsAvailable, int seatsRequested) {
+        return seatsAvailable >= seatsRequested;
+    }
+
+    public double calculateFare(int passengers) {
+        return passengers * 250;
+    }
+
+    @Test
+    public void testBookingSuccess() {
+        assertTrue(bookTicket(10, 3));
+    }
+
+    @Test
+    public void testBookingFailure() {
+        assertFalse(bookTicket(2, 5));
+    }
+
+    @Test
+    public void testFareCalculation() {
+        assertEquals(750.0, calculateFare(3), 0.01);
+    }
+
+    // Regression test after updates
+    @Test
+    public void testUpdatedFare() {
+        assertEquals(1250.0, calculateFare(5), 0.01);
+    }
+}

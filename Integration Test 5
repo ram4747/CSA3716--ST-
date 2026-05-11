@@ -1,0 +1,31 @@
+package testing;
+
+import static org.junit.Assert.assertTrue;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class ARMSTitleTest {
+
+    WebDriver driver;
+
+    @Before
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe");
+        driver = new ChromeDriver();
+    }
+
+    @Test
+    public void verifyARMSTitle() {
+        driver.get("http://arms.sse.saveetha.com/");
+        String actualTitle = driver.getTitle();
+        assertTrue(actualTitle.contains("ARMS"));
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}

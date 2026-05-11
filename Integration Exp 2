@@ -1,0 +1,37 @@
+package Integration_Exp;
+
+import static org.junit.Assert.assertTrue;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class ARMSIntegrationTest {
+
+    WebDriver driver;
+
+    @Before
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe");
+        driver = new ChromeDriver();
+    }
+
+    @Test
+    public void testARMSLoginIntegration() {
+        driver.get("http://arms.sse.saveetha.com/");
+
+        driver.findElement(By.name("username")).sendKeys("student");
+        driver.findElement(By.name("password")).sendKeys("password");
+        driver.findElement(By.name("submit")).click();
+
+        String title = driver.getTitle();
+        assertTrue(title.contains("ARMS"));
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}

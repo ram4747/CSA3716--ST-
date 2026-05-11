@@ -1,0 +1,25 @@
+package selenium;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class CheckboxRadioTest { @Test
+public void checkboxRadioSelection() throws InterruptedException {
+// 1. Setup
+System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\chromedriver.exe"); WebDriver driver = new ChromeDriver(); driver.get("https://demo.guru99.com/test/radio.html"); driver.manage().window().maximize(); // Maximizing often helps with screenshots
+
+// --- PART A: CHECKBOX ---
+System.out.println(">>> Clicking Checkbox 1..."); WebElement checkbox = driver.findElement(By.id("vfb-6-0")); checkbox.click();
+
+// *** PAUSE FOR SCREENSHOT (CHECKBOX) ***
+System.out.println(">>> PAUSING 5 SECONDS. TAKE SCREENSHOT OF CHECKBOX NOW.");
+Thread.sleep(5000);
+
+if (checkbox.isSelected()) { System.out.println("PASS: Checkbox is selected.");
+} else {
+System.out.println("FAIL: Checkbox is not selected.");
+}

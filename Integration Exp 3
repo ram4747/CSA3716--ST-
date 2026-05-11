@@ -1,0 +1,30 @@
+package Integration_Exp;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class PrimeNumberTest {
+
+    public boolean isPrime(int num) {
+        if (num <= 1) return false;
+        for (int i = 2; i < num; i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void testPrime1() {
+        assertTrue(isPrime(7));
+    }
+
+    @Test
+    public void testPrime2() {
+        assertFalse(isPrime(8));
+    }
+
+    @Test
+    public void testPrime3() {
+        assertTrue(isPrime(13));
+    }
+}
